@@ -29,7 +29,17 @@ const options = {
 app.use(cors(options));
 
 app.get('/', (req, res) => {
-  res.send('hi im your first server in express');
+  res.send(`hi im a server made with express
+
+  These are my main routes:
+    /api/v1/products
+    /api/v1/categories
+    /api/v1/users
+
+  To see each route content:
+    add to previous routes /id
+
+  `);
 });
 
 app.get('/new-rout', (req, res) => {
