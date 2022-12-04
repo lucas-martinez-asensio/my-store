@@ -1,34 +1,50 @@
 const express = require('express');
+const routerApi = require('./routes');
+
+const {
+  logErrors,
+  errorHandler,
+  boomErrorHandler,
+} = require('./middlewares/error.handler');
+const cors = require('cors');
+
 const app = express();
 const port = 3000;
 
+app.use(express.json());
+
+const whitelist = [
+  'https://localhost:8080',
+  'https://myapplucasmartinezasensio38069664.wt',
+];
+const options = {
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('not allowed'));
+    }
+  },
+};
+app.use(cors(options));
+
 app.get('/', (req, res) => {
-  // app.get es un metodo compuesto por el req y el res
   res.send('hi im your first server in express');
-  // con el res.send enviamos una respuesta al cliente
 });
 
 app.get('/new-rout', (req, res) => {
   res.send('hi im a new rout');
 });
 
-app.get('/products', (req, res) => {
-  // como api nosotros enviamos un json como respuesta no un string(send) así enviamos datos a clientes del frontend o
-  // aplicaciones que ya renderizan la información
-  res.json({
-    name: 'Product 1',
-    price: 10,
-  });
-});
-
 app.get('/home', (req, res) => {
-  // como api nosotros enviamos un json como respuesta no un string(send) así enviamos datos a clientes del frontend o
-  // aplicaciones que ya renderizan la información
   res.send('Home Sweet Home');
 });
 
 app.listen(port, () => {
-  // con listen podemos indicar en que puerto debe estar escuchando
   console.log('my port ' + port);
-  // en produccion no deberíamos tener console.log
 });
+
+routerApi(app);
+app.use(logErrors);
+app.use(boomErrorHandler);
+app.use(errorHandler);
