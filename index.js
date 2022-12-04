@@ -13,10 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-const whitelist = [
-  'https://localhost:8080',
-  'https://myapplucasmartinezasensio38069664.wt',
-];
+const whitelist = ['https://localhost:8080', 'https://my-store.up.railway.app'];
 const options = {
   origin: (origin, callback) => {
     if (whitelist.includes(origin)) {
