@@ -19,9 +19,7 @@ const whitelist = [
 ];
 const options = {
   origin: (origin, callback) => {
-    console.log(origin);
-    console.log(whitelist.indexOf(origin) != -1);
-    if (whitelist.indexOf(origin) != -1) {
+    if (!origin || whitelist.indexOf(origin) != -1) {
       callback(null, true);
     } else {
       callback(new Error('not allowed ' + origin));
