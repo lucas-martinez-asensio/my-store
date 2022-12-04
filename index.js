@@ -9,7 +9,7 @@ const {
 const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -40,8 +40,8 @@ app.get('/home', (req, res) => {
   res.send('Home Sweet Home');
 });
 
-app.listen(port, () => {
-  console.log('my port ' + port);
+app.listen(PORT, () => {
+  console.log('my port ' + PORT);
 });
 
 routerApi(app);
