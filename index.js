@@ -14,15 +14,17 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 const whitelist = [
-  'https://localhost:8080',
+  'http://localhost:3000/',
   'https://my-store.up.railway.app/',
 ];
 const options = {
   origin: (origin, callback) => {
-    if (whitelist.includes(origin)) {
+    console.log(origin);
+    console.log(whitelist.indexOf(origin) != -1);
+    if (whitelist.indexOf(origin) != -1) {
       callback(null, true);
     } else {
-      callback(new Error('not allowed'));
+      callback(new Error('not allowed ' + origin));
     }
   },
 };
